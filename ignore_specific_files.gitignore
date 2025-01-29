@@ -1,0 +1,32 @@
+# Byte-compiled và cached files
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+*.sqlite3
+
+# Mã tạm thời của Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Tạm thời trong môi trường thực thi Python
+*.egg-info/
+.eggs/
+*.env
+.env
+.venv
+
+# Docker specific
+*.pid
+*.tar
+
+# Output của Swagger UI (nếu có)
+swagger-ui/
+
+# Ignore output build của Docker
+build/
+*.bak
+
+# Khác (nếu có)
+*.backup
