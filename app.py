@@ -12,8 +12,8 @@ app = FastAPI(
 # AWS S3 configuration
 S3_BUCKET = "linhvd-e-learning"  # Thay bằng tên bucket của bạn
 S3_REGION = "ap-southeast-1"  # Ví dụ: "ap-southeast-1"
-AWS_ACCESS_KEY = "AKIAWCZC546OY33BB3QJ"  # Thay bằng Access Key của bạn
-AWS_SECRET_KEY = "3BiUi1hiAjmfJbjhKDkq/cPrRfX/xPcbUJwRY6D2"  # Thay bằng Secret Key của bạn
+AWS_ACCESS_KEY = "key"  # Thay bằng Access Key của bạn
+AWS_SECRET_KEY = "key"  # Thay bằng Secret Key của bạn
 
 # Initialize S3 client
 s3 = boto3.client(
