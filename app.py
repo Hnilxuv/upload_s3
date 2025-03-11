@@ -4,16 +4,18 @@ from botocore.exceptions import NoCredentialsError
 from typing import Dict
 import os
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(
     docs_url="/swagger-ui",  # Đổi URL mặc định Swagger từ /docs -> /swagger-ui
     redoc_url="/redoc-api",  # Đổi URL Redoc từ /redoc -> /redoc-api
 )
 
 # AWS S3 configuration
-S3_BUCKET = "linhvd-e-learning"  # Thay bằng tên bucket của bạn
+S3_BUCKET = "elearning-web"  # Thay bằng tên bucket của bạn
 S3_REGION = "ap-southeast-1"  # Ví dụ: "ap-southeast-1"
-AWS_ACCESS_KEY = "key"  # Thay bằng Access Key của bạn
-AWS_SECRET_KEY = "key"  # Thay bằng Secret Key của bạn
+AWS_ACCESS_KEY = ""  # Thay bằng Access Key của bạn
+AWS_SECRET_KEY = ""  # Thay bằng Secret Key của bạn
 
 # Initialize S3 client
 s3 = boto3.client(
@@ -21,6 +23,13 @@ s3 = boto3.client(
     aws_access_key_id=AWS_ACCESS_KEY,
     aws_secret_access_key=AWS_SECRET_KEY,
     region_name=S3_REGION
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Cho phép tất cả nguồn (có thể thay bằng danh sách domain cụ thể)
+    allow_credentials=True,
+    allow_methods=["*"],  # Cho phép tất cả HTTP methods
+    allow_headers=["*"],  # Cho phép tất cả headers
 )
 
 
@@ -30,9 +39,9 @@ async def upload_video(file: UploadFile = File(...)) -> Dict[str, str]:
     API endpoint để upload video lên AWS S3
     """
     try:
-        # Kiểm tra loại file
-        if not file.content_type.startswith("video/"):
-            raise HTTPException(status_code=400, detail="File không phải video!")
+        # # Kiểm tra loại file
+        # if not file.content_type.startswith("video/"):
+        #     raise HTTPException(status_code=400, detail="File không phải video!")
 
         # Gửi file lên S3
         file_key = f"uploads/{file.filename}"  # Đây sẽ là đường dẫn trong bucket
@@ -62,4 +71,4 @@ async def upload_video(file: UploadFile = File(...)) -> Dict[str, str]:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8001)
